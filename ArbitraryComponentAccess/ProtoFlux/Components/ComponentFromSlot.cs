@@ -23,9 +23,11 @@ public class ComponentFromSlot<T> : ObjectFunctionNode<FrooxEngineContext, T> wh
         //List<T> comp_list = Pool.BorrowList<T>();
         List<T> my_components = my_slot.GetComponents<T>();
 
-        return my_components.FirstOrDefault();
+        //return my_components.FirstOrDefault(); // old: return default comp
 
         // handle index errors
-        if (my_index > my_components.Count) return default(T);
+        if (my_index >= my_components.Count) return default(T);
+
+        return my_components[my_index];
     }
 }

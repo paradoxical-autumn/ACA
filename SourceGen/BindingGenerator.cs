@@ -3,6 +3,8 @@
 // BY XLINKA AND OTHER CONTRIBUTORS.                                                            //
 // DISTRIBUTED UNDER GPL-3.0                                                                    //
 // PLEASE SEE https://github.com/Xlinka/Project-Obsidian/blob/main/LICENSE FOR MORE INFORMATION //
+//                                                                                              //
+// NO CHANGES HAVE BEEN MADE TO THIS FILE AS OF WRITING                                         //
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
 using System.Collections.Generic;
