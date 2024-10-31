@@ -31,4 +31,12 @@
 			<HintPath>C:\Program Files (x86)\Steam\steamapps\common\Resonite\Resonite_Data\Managed\ProtoFluxBindings.dll</HintPath>
 		</Reference>
 	</ItemGroup>
+	
+	<ItemGroup>
+	  <Folder Include="Properties\" />
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <ProjectReference Include="..\SourceGen\SourceGen.csproj" OutputItemType="Analyzer" />
+	</ItemGroup>
 </Project>

@@ -1,0 +1,2 @@
+This code has been taken from [ProjectObsidian.SourceGenerators](https://github.com/Xlinka/Project-Obsidian/) which is distributed under the [GPL-3.0 licence](https://github.com/Xlinka/Project-Obsidian/blob/main/LICENSE) (as of writing), and thus
+any code in this directory and subdirectories is distributed as such as well.
