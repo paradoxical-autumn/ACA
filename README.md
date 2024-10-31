@@ -4,7 +4,7 @@ A powerful resonite plugin designed to give you Arbitrary Component Access.
 It adds ProtoFlux nodes designed to:
 - Get components from slots
 - Get fields from components
-- Convert IFields into objects (ref hacking)
+- Convert IFields into objects (ref hacking) *(to be completed)*
 
 # Warning!! // STOP!!
 Do ***NOT*** use this plugin if:
