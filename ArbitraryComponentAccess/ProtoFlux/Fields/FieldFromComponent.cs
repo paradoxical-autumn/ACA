@@ -21,11 +21,5 @@ public class FieldFromComponent : ObjectFunctionNode<FrooxEngineContext, IField>
         IField field = my_com.TryGetField(my_field);
 
         return field;
-
-        //if (pi is T)
-        //{
-        //    return (T)pi;
-        //}
-        //return null;
     }
 }
