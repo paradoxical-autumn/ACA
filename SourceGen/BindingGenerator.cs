@@ -4,7 +4,8 @@
 // DISTRIBUTED UNDER GPL-3.0                                                                    //
 // PLEASE SEE https://github.com/Xlinka/Project-Obsidian/blob/main/LICENSE FOR MORE INFORMATION //
 //                                                                                              //
-// NO CHANGES HAVE BEEN MADE TO THIS FILE AS OF WRITING                                         //
+// CHANGELOG                                                                                    //
+// - added option to prevent generator from running by adding "// no auto" anywhere in a file   //
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
 using System.Collections.Generic;
@@ -32,6 +33,11 @@ namespace SourceGenerators
         {
             foreach (var tree in context.Compilation.SyntaxTrees)
             {
+                var src_txt = tree.GetText();
+                var muted_txt = src_txt.ToString();
+                if (muted_txt.ToLower().Contains("// no auto"))
+                    continue;
+
                 var result = new StringBuilder();
                 var root = tree.GetCompilationUnitRoot();
                 var walker = new BindingGeneratorSyntaxWalker();
