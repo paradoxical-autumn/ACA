@@ -8,6 +8,7 @@
 // - added option to prevent generator from running by adding "// no auto" anywhere in a file   //
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -35,7 +36,13 @@ namespace SourceGenerators
             {
                 var src_txt = tree.GetText();
                 var muted_txt = src_txt.ToString();
-                if (muted_txt.ToLower().Contains("// no auto"))
+
+                var array_of_txt = muted_txt.Split(
+                    new string[] {Environment.NewLine},
+                    StringSplitOptions.None
+                    );
+
+                if (array_of_txt[0].ToLower().Contains("// no auto"))
                     continue;
 
                 var result = new StringBuilder();
