@@ -108,12 +108,6 @@ public class AddComponent : ActionNode<FrooxEngineContext> // change this to `Ad
         }
     }
 
-    // if i ripped this code straight from https://github.com/ErrorJan/ResonitePlugin-EngineShennanigans/blob/master/EngineShennanigans/Components/ProtoFluxBinds/AddComponent.cs
-    // id uncomment this BS that FEW automatically adds. i need you to realise that FEW is on our side.
-    // i get it, i get it. it adds code at RUNTIME (fucking what??) but still.
-    // it helps.
-    // ~ p19
-
     //protected override void InitializeSyncMembers()
     //{
     //    base.InitializeSyncMembers();
