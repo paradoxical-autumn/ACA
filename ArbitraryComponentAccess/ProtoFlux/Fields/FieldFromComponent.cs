@@ -13,8 +13,8 @@ public class FieldFromComponent : ObjectFunctionNode<FrooxEngineContext, IField>
 
     protected override IField Compute(FrooxEngineContext context)
     {
-        Component my_com = Component.Evaluate(context);
-        string my_field = Field.Evaluate(context);
+        Component? my_com = Component!.Evaluate(context);
+        string? my_field = Field!.Evaluate(context);
 
         if (my_com == null || my_field == null) return null;
 

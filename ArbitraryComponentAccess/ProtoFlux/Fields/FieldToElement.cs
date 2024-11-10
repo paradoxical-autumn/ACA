@@ -12,7 +12,7 @@ public class FieldToElement : ObjectFunctionNode<FrooxEngineContext, IWorldEleme
 
     protected override IWorldElement Compute(FrooxEngineContext context)
     {
-        IField my_field = Field.Evaluate(context);
+        IField? my_field = Field!.Evaluate(context);
         if (my_field == null) return default;
 
         return my_field as IWorldElement;

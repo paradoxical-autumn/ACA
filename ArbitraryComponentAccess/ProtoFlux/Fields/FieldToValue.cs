@@ -12,9 +12,10 @@ public class FieldToValue<T> : ValueFunctionNode<FrooxEngineContext, T> where T 
 
     protected override T Compute(FrooxEngineContext context)
     {
-        if (Field.Evaluate(context) == null) return default;
+        IField? field = Field!.Evaluate(context);
+        if (field == null) return default;
 
-        if (Field.Evaluate(context).BoxedValue is T t)
+        if (field.BoxedValue is T t)
         {
             return (T) t;
         }

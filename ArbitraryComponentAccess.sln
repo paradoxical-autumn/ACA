@@ -3,9 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArbitraryComponentAccess", "ArbitraryComponentAccess\ArbitraryComponentAccess.csproj", "{49341FFD-B153-419D-B14E-964878E899AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArbitraryComponentAccess", "ArbitraryComponentAccess\ArbitraryComponentAccess.csproj", "{49341FFD-B153-419D-B14E-964878E899AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceGen", "SourceGen\SourceGen.csproj", "{E7AD8C00-492F-4C08-96F9-4AF7D2F8D502}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SourceGen", "SourceGen\SourceGen.csproj", "{E7AD8C00-492F-4C08-96F9-4AF7D2F8D502}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D8A4235D-18D7-4F89-ABEE-8BC9A5687128}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
