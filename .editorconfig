@@ -1,7 +1,7 @@
 ﻿[*.cs]
 
 # CS8603: Possible null reference return.
-dotnet_diagnostic.CS8603.severity = suggestion
+#dotnet_diagnostic.CS8603.severity = suggestion
 
 # EnforceExtendedAnalyzers BS -- we dont need this! actually, it causes an error if we use it!!
-dotnet_diagnostic.RS1036.severity = suggestion
+#dotnet_diagnostic.RS1036.severity = suggestion

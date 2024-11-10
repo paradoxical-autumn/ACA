@@ -1,42 +1,47 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net462</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<LangVersion>12.0</LangVersion>
+		<Deterministic>true</Deterministic>
+		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+		<NoWarn>MSB3277</NoWarn>
+	</PropertyGroup>
 
-  <PropertyGroup>
-    <TargetFramework>net462</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-	<LangVersion>10.0</LangVersion>
-	<Deterministic>true</Deterministic>
-	<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
-  </PropertyGroup>
+	<PropertyGroup>
+		<ResonitePath Condition="Exists('C:\Program Files (x86)\Steam\steamapps\common\Resonite\')">C:\Program Files (x86)\Steam\steamapps\common\Resonite\</ResonitePath>
+		<ResonitePath Condition="Exists('$(HOME)/SSD/SteamLibrary/steamapps/common/Resonite')">$(HOME)/SSD/SteamLibrary/steamapps/common/Resonite</ResonitePath>
+	</PropertyGroup>
 
 	<!-- Taken from https://github.com/paradoxical-autumn/ResoniteExamplePlugin -->
 	<ItemGroup>
 		<!-- Elements.Assets and Elements.Core are used to get the custom frooxengine variable types. -->
 		<Reference Include="Elements.Assets">
-			<HintPath>C:\Program Files (x86)\Steam\steamapps\common\Resonite\Resonite_Data\Managed\Elements.Assets.dll</HintPath>
+			<HintPath>$(ResonitePath)/Resonite_Data/Managed/Elements.Assets.dll</HintPath>
 		</Reference>
 		<Reference Include="Elements.Core">
-			<HintPath>C:\Program Files (x86)\Steam\steamapps\common\Resonite\Resonite_Data\Managed\Elements.Core.dll</HintPath>
+			<HintPath>$(ResonitePath)/Resonite_Data/Managed/Elements.Core.dll</HintPath>
 		</Reference>
 		<!-- FrooxEngine is... FrooxEngine. You kinda need this xD -->
 		<Reference Include="FrooxEngine">
-			<HintPath>C:\Program Files (x86)\Steam\steamapps\common\Resonite\Resonite_Data\Managed\FrooxEngine.dll</HintPath>
+			<HintPath>$(ResonitePath)/Resonite_Data/Managed/FrooxEngine.dll</HintPath>
 		</Reference>
 		<!-- ProtoFlux.Core is used to create ProtoFlux code. It does NOT contain the code for bindings. -->
 		<Reference Include="ProtoFlux.Core">
-			<HintPath>C:\Program Files (x86)\Steam\steamapps\common\Resonite\Resonite_Data\Managed\ProtoFlux.Core.dll</HintPath>
+			<HintPath>$(ResonitePath)/Resonite_Data/Managed/ProtoFlux.Core.dll</HintPath>
 		</Reference>
 		<!-- ProtoFluxBindings is used to create ProtoFlux BINDINGS. It does NOT contain the code for programming nodes. -->
 		<Reference Include="ProtoFluxBindings">
-			<HintPath>C:\Program Files (x86)\Steam\steamapps\common\Resonite\Resonite_Data\Managed\ProtoFluxBindings.dll</HintPath>
+			<HintPath>$(ResonitePath)/Resonite_Data/Managed/ProtoFluxBindings.dll</HintPath>
 		</Reference>
 	</ItemGroup>
-	
+
 	<ItemGroup>
-	  <Folder Include="Properties\" />
+		<Folder Include="Properties\" />
 	</ItemGroup>
-	
+
 	<ItemGroup>
-	  <ProjectReference Include="..\SourceGen\SourceGen.csproj" OutputItemType="Analyzer" />
+		<ProjectReference Include="..\SourceGen\SourceGen.csproj" OutputItemType="Analyzer" />
 	</ItemGroup>
 </Project>

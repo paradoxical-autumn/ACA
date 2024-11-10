@@ -1,25 +1,23 @@
-﻿using FrooxEngine;
+using FrooxEngine;
 using ProtoFlux.Core;
 using FrooxEngine.ProtoFlux;
 using FrooxEngine.ProtoFlux.Runtimes.Execution;
-using ArbitraryComponentAccess.ProtoFlux.Components;
+using ArbitraryComponentAccess.ProtoFlux.Fields;
 
 using FluxExecutionContext = ProtoFlux.Runtimes.Execution.ExecutionContext;
 
-namespace ArbitraryComponentAccess.ProtoFluxBinds.Components;
+namespace ArbitraryComponentAccess.ProtoFluxBinds.Fields;
 
-[Category( "ProtoFlux/Runtimes/Execution/Nodes/ACA/Components" )]
-public class RemoveComponent : ActionNode<FrooxEngineContext>
+[Category( "ProtoFlux/Runtimes/Execution/Nodes/ACA/Fields" )]
+public class FieldFromComponent : ObjectFunctionNode<FrooxEngineContext, IField>
 {
     public readonly SyncRef<INodeObjectOutput<Component>> component = new();
-    public readonly SyncRef<INodeOperation> onRemoved = new();
-    public readonly SyncRef<INodeOperation> onFailed = new();
+    public readonly SyncRef<INodeObjectOutput<string>> fieldName = new();
     
-    public RemoveComponentLogix TypedNodeInstance { get; private set; } = null!;
-    public override Type NodeType => typeof( RemoveComponentLogix );
+    public FieldFromComponentLogix TypedNodeInstance { get; private set; } = null!;
+    public override Type NodeType => typeof( FieldFromComponentLogix );
     public override INode NodeInstance => TypedNodeInstance!;
-    public override int NodeInputCount => base.NodeInputCount + 1;
-    public override int NodeImpulseCount => base.NodeImpulseCount + 2;
+    public override int NodeInputCount => base.NodeInputCount + 2;
 
     public override void ClearInstance()
     {
@@ -33,18 +31,18 @@ public class RemoveComponent : ActionNode<FrooxEngineContext>
             throw new InvalidOperationException( "Node has already been instantiated" );
         }
 
-        TypedNodeInstance = new RemoveComponentLogix();
+        TypedNodeInstance = new FieldFromComponentLogix();
         return (TypedNodeInstance as N)!;
     }
 
     protected override void AssociateInstanceInternal( INode node )
     {
-        if ( node is RemoveComponentLogix typedNodeInstance )
+        if ( node is FieldFromComponentLogix typedNodeInstance )
         {
             TypedNodeInstance = typedNodeInstance;
             return;
         }
-        throw new ArgumentException( "Node instance is not of type " + typeof( RemoveComponentLogix ) );
+        throw new ArgumentException( "Node instance is not of type " + typeof( FieldFromComponentLogix ) );
     }
 
     protected override ISyncRef GetInputInternal( ref int index )
@@ -59,28 +57,11 @@ public class RemoveComponent : ActionNode<FrooxEngineContext>
         {
             case 0:
                 return component;
+            case 1:
+                return fieldName;
             default:
-                index -= 1;
+                index -= 2;
                 return null!;
-        }
-    }
-
-    protected override ISyncRef GetImpulseInternal( ref int index )
-    {
-        ISyncRef impulseInternal = base.GetImpulseInternal( ref index );
-        if ( impulseInternal != null )
-        {
-            return impulseInternal;
-        }
-        switch ( index )
-        {
-        case 0:
-            return onRemoved;
-        case 1:
-            return onFailed;
-        default:
-            index -= 2;
-            return null!;
         }
     }
 
@@ -98,14 +79,13 @@ public class RemoveComponent : ActionNode<FrooxEngineContext>
             1 => updateOrder, 
             2 => EnabledField,
             3 => component,
-            4 => onRemoved,
-            5 => onFailed,
+            4 => fieldName,
             _ => throw new ArgumentOutOfRangeException(), 
         };
     }
 
-    public static AddComponent __New()
+    public static FieldFromComponent __New()
     {
-        return new AddComponent();
+        return new FieldFromComponent();
     }
 }

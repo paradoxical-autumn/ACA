@@ -9,10 +9,10 @@ using FrooxEngine.ProtoFlux;
 using ProtoFlux.Core;
 using ProtoFlux.Runtimes.Execution;
 
-namespace ProtoFlux.Runtimes.Execution.Nodes.ArbitraryComponentAccess.ProtoFlux.Components;
+namespace ArbitraryComponentAccess.ProtoFlux.Components;
 
 [Category("ACA/Components")]
-public class RemoveComponent : ActionNode<FrooxEngineContext>
+public class RemoveComponentLogix : ActionNode<FrooxEngineContext>
 {
     public ObjectInput<Component> component;
 
@@ -23,9 +23,12 @@ public class RemoveComponent : ActionNode<FrooxEngineContext>
     {
         Component? c = component!.Evaluate(context);
 
-        if (c == null) return onFailed.Target;
+        if (c == null) 
+            return onFailed.Target;
 
-        c?.Destroy(); // c.Destroy() is safer as it actually calls OnDestroying(), letting the component clean up after itself.
+        // c.Destroy() is safer as it actually calls OnDestroying(), letting the component clean up after itself.
+        c.Destroy();
+
         return onRemoved.Target;
     }
 }

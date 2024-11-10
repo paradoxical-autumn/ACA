@@ -1,4 +1,4 @@
-﻿using FrooxEngine;
+using FrooxEngine;
 using ProtoFlux.Core;
 using FrooxEngine.ProtoFlux;
 using FrooxEngine.ProtoFlux.Runtimes.Execution;
@@ -9,21 +9,20 @@ using FluxExecutionContext = ProtoFlux.Runtimes.Execution.ExecutionContext;
 namespace ArbitraryComponentAccess.ProtoFluxBinds.Components;
 
 [Category( "ProtoFlux/Runtimes/Execution/Nodes/ACA/Components" )]
-public class AddComponent : ActionNode<FrooxEngineContext>
+public class ForeachComponent : ActionNode<FrooxEngineContext>
 {
     public readonly SyncRef<INodeObjectOutput<Slot>> slot = new();
-    public readonly SyncRef<INodeObjectOutput<Type>> componentType = new();
-    public readonly NodeObjectOutput<Component> instantiatedComponent = new();
-    public readonly SyncRef<INodeOperation> onAdded = new();
-    public readonly SyncRef<INodeOperation> onFailed = new();
+    public readonly NodeObjectOutput<Component> component = new();
+    public readonly SyncRef<ISyncNodeOperation> loopStart = new();
+    public readonly SyncRef<ISyncNodeOperation> loopIteration = new();
+    public readonly SyncRef<INodeOperation> loopEnd = new();
     
-    public AddComponentLogix TypedNodeInstance { get; private set; } = null!;
-    public override Type NodeType => typeof( AddComponentLogix );
+    public ForeachComponentLogix TypedNodeInstance { get; private set; } = null!;
+    public override Type NodeType => typeof( ForeachComponentLogix );
     public override INode NodeInstance => TypedNodeInstance!;
-    public override int NodeInputCount => base.NodeInputCount + 2;
+    public override int NodeInputCount => base.NodeInputCount + 1;
     public override int NodeOutputCount => base.NodeOutputCount + 1;
-    public override int NodeImpulseCount => base.NodeImpulseCount + 2;
-    // public override string NodeName => "Add Component"; // Let's test if this is needed
+    public override int NodeImpulseCount => base.NodeImpulseCount + 3;
 
     public override void ClearInstance()
     {
@@ -37,18 +36,18 @@ public class AddComponent : ActionNode<FrooxEngineContext>
             throw new InvalidOperationException( "Node has already been instantiated" );
         }
 
-        TypedNodeInstance = new AddComponentLogix();
+        TypedNodeInstance = new ForeachComponentLogix();
         return (TypedNodeInstance as N)!;
     }
 
     protected override void AssociateInstanceInternal( INode node )
     {
-        if ( node is AddComponentLogix typedNodeInstance )
+        if ( node is ForeachComponentLogix typedNodeInstance )
         {
             TypedNodeInstance = typedNodeInstance;
             return;
         }
-        throw new ArgumentException( "Node instance is not of type " + typeof( AddComponentLogix ) );
+        throw new ArgumentException( "Node instance is not of type " + typeof( ForeachComponentLogix ) );
     }
 
     protected override ISyncRef GetInputInternal( ref int index )
@@ -63,10 +62,8 @@ public class AddComponent : ActionNode<FrooxEngineContext>
         {
             case 0:
                 return slot;
-            case 1:
-                return componentType;
             default:
-                index -= 2;
+                index -= 1;
                 return null!;
         }
     }
@@ -82,7 +79,7 @@ public class AddComponent : ActionNode<FrooxEngineContext>
         switch ( index )
         {
             case 0:
-                return instantiatedComponent;
+                return component;
             default:
                 index -= 1;
                 return null!;
@@ -99,11 +96,13 @@ public class AddComponent : ActionNode<FrooxEngineContext>
         switch ( index )
         {
         case 0:
-            return onAdded;
+            return loopStart;
         case 1:
-            return onFailed;
+            return loopIteration;
+        case 2:
+            return loopEnd;
         default:
-            index -= 2;
+            index -= 3;
             return null!;
         }
     }
@@ -122,10 +121,10 @@ public class AddComponent : ActionNode<FrooxEngineContext>
             1 => updateOrder, 
             2 => EnabledField,
             3 => slot,
-            4 => componentType,
-            5 => instantiatedComponent,
-            6 => onAdded,
-            7 => onFailed,
+            4 => component,
+            5 => loopStart,
+            6 => loopIteration,
+            7 => loopEnd,
             _ => throw new ArgumentOutOfRangeException(), 
         };
     }

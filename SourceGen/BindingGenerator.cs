@@ -38,7 +38,7 @@ namespace SourceGenerators
                 var muted_txt = src_txt.ToString();
 
                 var array_of_txt = muted_txt.Split(
-                    new string[] {Environment.NewLine},
+                    new string[] {"\r\n"},
                     StringSplitOptions.None
                     );
 

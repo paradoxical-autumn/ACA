@@ -1,4 +1,4 @@
-﻿using FrooxEngine;
+using FrooxEngine;
 using ProtoFlux.Core;
 using FrooxEngine.ProtoFlux;
 using FrooxEngine.ProtoFlux.Runtimes.Execution;
@@ -9,17 +9,15 @@ using FluxExecutionContext = ProtoFlux.Runtimes.Execution.ExecutionContext;
 namespace ArbitraryComponentAccess.ProtoFluxBinds.Components;
 
 [Category( "ProtoFlux/Runtimes/Execution/Nodes/ACA/Components" )]
-public class RemoveComponent : ActionNode<FrooxEngineContext>
+public class ComponentFromSlot<T> : ObjectFunctionNode<FrooxEngineContext, T> where T : Component
 {
-    public readonly SyncRef<INodeObjectOutput<Component>> component = new();
-    public readonly SyncRef<INodeOperation> onRemoved = new();
-    public readonly SyncRef<INodeOperation> onFailed = new();
+    public readonly SyncRef<INodeObjectOutput<Slot>> slot = new();
+    public readonly SyncRef<INodeValueOutput<int>> componentIndex = new();
     
-    public RemoveComponentLogix TypedNodeInstance { get; private set; } = null!;
-    public override Type NodeType => typeof( RemoveComponentLogix );
+    public ComponentFromSlotLogix<T> TypedNodeInstance { get; private set; } = null!;
+    public override Type NodeType => typeof( ComponentFromSlotLogix<T> );
     public override INode NodeInstance => TypedNodeInstance!;
-    public override int NodeInputCount => base.NodeInputCount + 1;
-    public override int NodeImpulseCount => base.NodeImpulseCount + 2;
+    public override int NodeInputCount => base.NodeInputCount + 2;
 
     public override void ClearInstance()
     {
@@ -33,18 +31,18 @@ public class RemoveComponent : ActionNode<FrooxEngineContext>
             throw new InvalidOperationException( "Node has already been instantiated" );
         }
 
-        TypedNodeInstance = new RemoveComponentLogix();
+        TypedNodeInstance = new ComponentFromSlotLogix<T>();
         return (TypedNodeInstance as N)!;
     }
 
     protected override void AssociateInstanceInternal( INode node )
     {
-        if ( node is RemoveComponentLogix typedNodeInstance )
+        if ( node is ComponentFromSlotLogix<T> typedNodeInstance )
         {
             TypedNodeInstance = typedNodeInstance;
             return;
         }
-        throw new ArgumentException( "Node instance is not of type " + typeof( RemoveComponentLogix ) );
+        throw new ArgumentException( "Node instance is not of type " + typeof( ComponentFromSlotLogix<T> ) );
     }
 
     protected override ISyncRef GetInputInternal( ref int index )
@@ -58,29 +56,12 @@ public class RemoveComponent : ActionNode<FrooxEngineContext>
         switch ( index )
         {
             case 0:
-                return component;
+                return slot;
+            case 1:
+                return this.componentIndex;
             default:
-                index -= 1;
+                index -= 2;
                 return null!;
-        }
-    }
-
-    protected override ISyncRef GetImpulseInternal( ref int index )
-    {
-        ISyncRef impulseInternal = base.GetImpulseInternal( ref index );
-        if ( impulseInternal != null )
-        {
-            return impulseInternal;
-        }
-        switch ( index )
-        {
-        case 0:
-            return onRemoved;
-        case 1:
-            return onFailed;
-        default:
-            index -= 2;
-            return null!;
         }
     }
 
@@ -90,22 +71,21 @@ public class RemoveComponent : ActionNode<FrooxEngineContext>
         base.InitializeSyncMembers();
     }
 
-    public override ISyncMember GetSyncMember(int index)
+    public override ISyncMember GetSyncMember( int index )
     {
         return index switch
         {
             0 => persistent, 
             1 => updateOrder, 
             2 => EnabledField,
-            3 => component,
-            4 => onRemoved,
-            5 => onFailed,
+            3 => slot,
+            4 => this.componentIndex,
             _ => throw new ArgumentOutOfRangeException(), 
         };
     }
 
-    public static AddComponent __New()
+    public static ComponentFromSlot<T> __New()
     {
-        return new AddComponent();
+        return new ComponentFromSlot<T>();
     }
 }

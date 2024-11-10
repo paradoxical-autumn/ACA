@@ -1,4 +1,5 @@
-﻿using FrooxEngine;
+// no auto
+using FrooxEngine;
 using ProtoFlux.Core;
 using FrooxEngine.ProtoFlux;
 using FrooxEngine.ProtoFlux.Runtimes.Execution;
@@ -9,18 +10,17 @@ using FluxExecutionContext = ProtoFlux.Runtimes.Execution.ExecutionContext;
 namespace ArbitraryComponentAccess.ProtoFluxBinds.Components;
 
 [Category( "ProtoFlux/Runtimes/Execution/Nodes/ACA/Components" )]
-public class AddComponent : ActionNode<FrooxEngineContext>
+public class AddComponent<T> : ActionNode<FrooxEngineContext> where T : Component, new()
 {
     public readonly SyncRef<INodeObjectOutput<Slot>> slot = new();
-    public readonly SyncRef<INodeObjectOutput<Type>> componentType = new();
     public readonly NodeObjectOutput<Component> instantiatedComponent = new();
     public readonly SyncRef<INodeOperation> onAdded = new();
     public readonly SyncRef<INodeOperation> onFailed = new();
     
-    public AddComponentLogix TypedNodeInstance { get; private set; } = null!;
-    public override Type NodeType => typeof( AddComponentLogix );
+    public AddComponentLogix<T> TypedNodeInstance { get; private set; } = null!;
+    public override Type NodeType => typeof( AddComponentLogix<T> );
     public override INode NodeInstance => TypedNodeInstance!;
-    public override int NodeInputCount => base.NodeInputCount + 2;
+    public override int NodeInputCount => base.NodeInputCount + 1;
     public override int NodeOutputCount => base.NodeOutputCount + 1;
     public override int NodeImpulseCount => base.NodeImpulseCount + 2;
     // public override string NodeName => "Add Component"; // Let's test if this is needed
@@ -37,18 +37,18 @@ public class AddComponent : ActionNode<FrooxEngineContext>
             throw new InvalidOperationException( "Node has already been instantiated" );
         }
 
-        TypedNodeInstance = new AddComponentLogix();
+        TypedNodeInstance = new AddComponentLogix<T>();
         return (TypedNodeInstance as N)!;
     }
 
     protected override void AssociateInstanceInternal( INode node )
     {
-        if ( node is AddComponentLogix typedNodeInstance )
+        if ( node is AddComponentLogix<T> typedNodeInstance )
         {
             TypedNodeInstance = typedNodeInstance;
             return;
         }
-        throw new ArgumentException( "Node instance is not of type " + typeof( AddComponentLogix ) );
+        throw new ArgumentException( "Node instance is not of type " + typeof( AddComponentLogix<T> ) );
     }
 
     protected override ISyncRef GetInputInternal( ref int index )
@@ -63,10 +63,8 @@ public class AddComponent : ActionNode<FrooxEngineContext>
         {
             case 0:
                 return slot;
-            case 1:
-                return componentType;
             default:
-                index -= 2;
+                index -= 1;
                 return null!;
         }
     }
@@ -122,10 +120,9 @@ public class AddComponent : ActionNode<FrooxEngineContext>
             1 => updateOrder, 
             2 => EnabledField,
             3 => slot,
-            4 => componentType,
-            5 => instantiatedComponent,
-            6 => onAdded,
-            7 => onFailed,
+            4 => instantiatedComponent,
+            5 => onAdded,
+            6 => onFailed,
             _ => throw new ArgumentOutOfRangeException(), 
         };
     }

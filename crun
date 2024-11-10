@@ -1,0 +1,21 @@
+#!/bin/bash
+ResoniteEXE="$HOME/SSD/SteamLibrary/steamapps/common/Resonite/Resonite.exe"
+
+rm Logs/*
+dotnet build
+mkdir -p /tmp/resonite/{cache,data,plugins}
+cp ./ArbitraryComponentAccess/bin/Debug/net462/ArbitraryComponentAccess.dll /tmp/resonite/plugins
+cp ./additionalPlugins/* /tmp/resonite/plugins
+
+for i in $(ls /tmp/resonite/plugins)
+do
+   PSTFX="$PSTFX -LoadAssembly Z:/tmp/resonite/plugins/$i"
+done
+
+protontricks-launch --appid 2519830 \
+ $ResoniteEXE \
+ -Screen \
+ -SkipIntroTutorial \
+ -CachePath "Z:/tmp/resonite/cache" \
+ -DataPath "Z:/tmp/resonite/data" \
+ $PSTFX
