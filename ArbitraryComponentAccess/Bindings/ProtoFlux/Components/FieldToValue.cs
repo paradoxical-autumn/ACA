@@ -3,6 +3,7 @@ using ProtoFlux.Core;
 using FrooxEngine.ProtoFlux;
 using FrooxEngine.ProtoFlux.Runtimes.Execution;
 using ArbitraryComponentAccess.ProtoFlux.Fields;
+using Elements.Core;
 
 using FluxExecutionContext = ProtoFlux.Runtimes.Execution.ExecutionContext;
 
@@ -11,6 +12,7 @@ namespace ArbitraryComponentAccess.ProtoFluxBinds.Fields;
 [Category( "ProtoFlux/Runtimes/Execution/Nodes/ACA/Fields" )]
 public class FieldToValue<T> : ValueFunctionNode<FrooxEngineContext, T> where T : unmanaged
 {
+    [OldName("Field")]
     public readonly SyncRef<INodeObjectOutput<IField>> field = new();
     
     public FieldToValueLogix<T> TypedNodeInstance { get; private set; } = null!;

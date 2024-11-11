@@ -3,15 +3,20 @@ using ProtoFlux.Core;
 using FrooxEngine.ProtoFlux;
 using FrooxEngine.ProtoFlux.Runtimes.Execution;
 using ArbitraryComponentAccess.ProtoFlux.Fields;
+using Elements.Core;
 
 using FluxExecutionContext = ProtoFlux.Runtimes.Execution.ExecutionContext;
 
 namespace ArbitraryComponentAccess.ProtoFluxBinds.Fields;
 
 [Category( "ProtoFlux/Runtimes/Execution/Nodes/ACA/Fields" )]
+[OldNamespace("FrooxEngine.ArbitraryComponentAccess.ProtoFlux.Fields")]
+[OldTypeName("FrooxEngine.ArbitraryComponentAccess.ProtoFlux.Fields.FieldFromComponent")]
 public class FieldFromComponent : ObjectFunctionNode<FrooxEngineContext, IField>
 {
+    [OldName("Component")]
     public readonly SyncRef<INodeObjectOutput<Component>> component = new();
+    [OldName("Field")]
     public readonly SyncRef<INodeObjectOutput<string>> fieldName = new();
     
     public FieldFromComponentLogix TypedNodeInstance { get; private set; } = null!;

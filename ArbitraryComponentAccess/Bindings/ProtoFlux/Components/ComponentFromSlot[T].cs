@@ -3,15 +3,20 @@ using ProtoFlux.Core;
 using FrooxEngine.ProtoFlux;
 using FrooxEngine.ProtoFlux.Runtimes.Execution;
 using ArbitraryComponentAccess.ProtoFlux.Components;
+using Elements.Core;
 
 using FluxExecutionContext = ProtoFlux.Runtimes.Execution.ExecutionContext;
 
 namespace ArbitraryComponentAccess.ProtoFluxBinds.Components;
 
 [Category( "ProtoFlux/Runtimes/Execution/Nodes/ACA/Components" )]
+[OldNamespace("FrooxEngine.ProtoFlux.Runtimes.Execution.Nodes.ArbitraryComponentAccess.ProtoFlux.Components")]
+[OldTypeName("FrooxEngine.ProtoFlux.Runtimes.Execution.Nodes.ArbitraryComponentAccess.ProtoFlux.Components.ComponentFromSlot")]
 public class ComponentFromSlot<T> : ObjectFunctionNode<FrooxEngineContext, T> where T : Component
 {
+    [OldName("Slot")]
     public readonly SyncRef<INodeObjectOutput<Slot>> slot = new();
+    [OldName("ComponentIndex")]
     public readonly SyncRef<INodeValueOutput<int>> componentIndex = new();
     
     public ComponentFromSlotLogix<T> TypedNodeInstance { get; private set; } = null!;
