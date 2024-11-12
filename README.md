@@ -19,7 +19,7 @@ It adds ProtoFlux nodes designed to:
 
 # FAQ
 ## Isn't this dangerous for other people who don't have it installed??
-Nope! This isn't a mod. You can't just join a random session and start [ab]using the plugin.
+Nope! This isn't a mod. You can't just join a random session and start [ab]using the plugin. You can only use it in sessions where the host has explicitly installed it as well.
 
 ## My [thing] from an older version disconnected a bunch of wires/became a `MissingComponent`?
 That's probably a bug from when we were recreating namespaces. Check if there's a more recent version of the plugin and if not, report it as a bug. Make sure to clarify what fields are broken and on what components. Also, if you know what version you saved the item on that can also help!
