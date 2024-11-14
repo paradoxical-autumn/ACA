@@ -13,7 +13,7 @@ namespace ArbitraryComponentAccess.ProtoFluxBinds.Components;
 public class AddComponent<T> : ActionNode<FrooxEngineContext> where T : Component, new()
 {
     public readonly SyncRef<INodeObjectOutput<Slot>> slot = new();
-    public readonly NodeObjectOutput<Component> instantiatedComponent = new();
+    public readonly NodeObjectOutput<T> instantiatedComponent = new();
     public readonly SyncRef<INodeOperation> onAdded = new();
     public readonly SyncRef<INodeOperation> onFailed = new();
     
