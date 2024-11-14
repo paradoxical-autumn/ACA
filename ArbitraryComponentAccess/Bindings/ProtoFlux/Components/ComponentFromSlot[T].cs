@@ -69,28 +69,4 @@ public class ComponentFromSlot<T> : ObjectFunctionNode<FrooxEngineContext, T> wh
                 return null!;
         }
     }
-
-    // FrooxEngine Weaver Stuff:
-    protected override void InitializeSyncMembers()
-    {
-        base.InitializeSyncMembers();
-    }
-
-    public override ISyncMember GetSyncMember( int index )
-    {
-        return index switch
-        {
-            0 => persistent, 
-            1 => updateOrder, 
-            2 => EnabledField,
-            3 => slot,
-            4 => this.componentIndex,
-            _ => throw new ArgumentOutOfRangeException(), 
-        };
-    }
-
-    public static ComponentFromSlot<T> __New()
-    {
-        return new ComponentFromSlot<T>();
-    }
 }

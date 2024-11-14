@@ -83,29 +83,4 @@ public class RemoveComponent : ActionNode<FrooxEngineContext>
             return null!;
         }
     }
-
-    // FrooxEngine Weaver Stuff:
-    protected override void InitializeSyncMembers()
-    {
-        base.InitializeSyncMembers();
-    }
-
-    public override ISyncMember GetSyncMember(int index)
-    {
-        return index switch
-        {
-            0 => persistent, 
-            1 => updateOrder, 
-            2 => EnabledField,
-            3 => component,
-            4 => onRemoved,
-            5 => onFailed,
-            _ => throw new ArgumentOutOfRangeException(), 
-        };
-    }
-
-    public static AddComponent __New()
-    {
-        return new AddComponent();
-    }
 }

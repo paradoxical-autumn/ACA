@@ -63,27 +63,4 @@ public class FieldToValue<T> : ValueFunctionNode<FrooxEngineContext, T> where T 
                 return null!;
         }
     }
-
-    // FrooxEngine Weaver Stuff:
-    protected override void InitializeSyncMembers()
-    {
-        base.InitializeSyncMembers();
-    }
-
-    public override ISyncMember GetSyncMember(int index)
-    {
-        return index switch
-        {
-            0 => persistent, 
-            1 => updateOrder, 
-            2 => EnabledField,
-            3 => field,
-            _ => throw new ArgumentOutOfRangeException(), 
-        };
-    }
-
-    public static FieldToValue<T> __New()
-    {
-        return new FieldToValue<T>();
-    }
 }

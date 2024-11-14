@@ -106,31 +106,4 @@ public class ForeachComponent : ActionNode<FrooxEngineContext>
             return null!;
         }
     }
-
-    // FrooxEngine Weaver Stuff:
-    protected override void InitializeSyncMembers()
-    {
-        base.InitializeSyncMembers();
-    }
-
-    public override ISyncMember GetSyncMember(int index)
-    {
-        return index switch
-        {
-            0 => persistent, 
-            1 => updateOrder, 
-            2 => EnabledField,
-            3 => slot,
-            4 => component,
-            5 => loopStart,
-            6 => loopIteration,
-            7 => loopEnd,
-            _ => throw new ArgumentOutOfRangeException(), 
-        };
-    }
-
-    public static AddComponent __New()
-    {
-        return new AddComponent();
-    }
 }

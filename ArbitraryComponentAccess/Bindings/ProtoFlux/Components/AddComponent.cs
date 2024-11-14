@@ -107,31 +107,4 @@ public class AddComponent : ActionNode<FrooxEngineContext>
             return null!;
         }
     }
-
-    // FrooxEngine Weaver Stuff:
-    protected override void InitializeSyncMembers()
-    {
-        base.InitializeSyncMembers();
-    }
-
-    public override ISyncMember GetSyncMember(int index)
-    {
-        return index switch
-        {
-            0 => persistent, 
-            1 => updateOrder, 
-            2 => EnabledField,
-            3 => slot,
-            4 => componentType,
-            5 => instantiatedComponent,
-            6 => onAdded,
-            7 => onFailed,
-            _ => throw new ArgumentOutOfRangeException(), 
-        };
-    }
-
-    public static AddComponent __New()
-    {
-        return new AddComponent();
-    }
 }

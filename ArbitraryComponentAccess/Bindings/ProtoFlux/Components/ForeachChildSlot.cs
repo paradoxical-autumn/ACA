@@ -109,32 +109,4 @@ public class ForeachChildSlot : ActionNode<FrooxEngineContext>
             return null!;
         }
     }
-
-    // FrooxEngine Weaver Stuff:
-    protected override void InitializeSyncMembers()
-    {
-        base.InitializeSyncMembers();
-    }
-
-    public override ISyncMember GetSyncMember(int index)
-    {
-        return index switch
-        {
-            0 => persistent, 
-            1 => updateOrder, 
-            2 => EnabledField,
-            3 => slot,
-            4 => reverse,
-            5 => childSlot,
-            6 => loopStart,
-            7 => loopIteration,
-            8 => loopEnd,
-            _ => throw new ArgumentOutOfRangeException(), 
-        };
-    }
-
-    public static ForeachChildSlot __New()
-    {
-        return new ForeachChildSlot();
-    }
 }
