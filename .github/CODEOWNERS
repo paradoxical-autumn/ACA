@@ -1,0 +1,7 @@
+# i dont want nothin' to do with the bindings. they scare me.
+Bindings/ @errorjan
+
+# i barely understand the source generator but im here, fixing it up.
+SourceGen/ @paradoxical-autumn
+
+/ArbitraryComponentAccess/ProtoFlux/ @paradoxical-autumn @errorjan
