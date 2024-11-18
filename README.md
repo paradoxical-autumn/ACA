@@ -25,4 +25,4 @@ Nope! This isn't a mod. You can't just join a random session and start [ab]using
 That's probably a bug from when we were recreating namespaces. Check if there's a more recent version of the plugin and if not, report it as a bug. Make sure to clarify what fields are broken and on what components. Also, if you know what version you saved the item on that can also help!
 
 ## Why did you make this?
-We got bored. Also do NOT ask why we are manually weaving the components and creating the protoflux bindings.
+We got bored. Also do NOT ask why we are manually creating the protoflux bindings.
