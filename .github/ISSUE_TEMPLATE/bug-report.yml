@@ -39,8 +39,7 @@ body:
       options:
         - "Windows"
         - "Linux"
-        - "MacOS"
-        - "Console"
+        - "Standalone"
     validations:
       required: true
   - type: textarea
