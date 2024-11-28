@@ -50,9 +50,9 @@ public class ACAWarningDialog : Component
 
         UIBuilder ui = new UIBuilder(base.Slot);
         RadiantUI_Constants.SetupDefaultStyle(ui);
-        List<RectTransform> list = ui.SplitHorizontally(0.4f, 0.05f, 0.6f);
-        RectTransform rect = list[0];
-        RectTransform rect2 = list[2];
+        RectTransform rect = ui.CurrentRect;
+        //RectTransform rect = list[0];
+        //RectTransform rect2 = list[2];
 
         ui = new UIBuilder(rect);
         //RadiantUI_Constants.SetupDefaultStyle(ui);
