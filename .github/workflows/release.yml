@@ -1,3 +1,5 @@
+# this does NOT work as it cant reference the frooxengine assemblies. thats kinda obvious in retrospect.
+
 on:
   # push:
   #   tags:
