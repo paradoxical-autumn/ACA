@@ -1,0 +1,41 @@
+on:
+  # push:
+  #   tags:
+  #     - '*'
+  workflow_dispatch:
+
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
+    env:
+      PROJECT: ArbitraryComponentAccess
+      DOTNET_VERSION: '8.0.x'
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Build
+        run: dotnet publish ${{ env.PROJECT }}/${{ env.PROJECT }}.csproj -c Release -o publish
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          draft: true
+          prerelease: false
+          generate_release_notes: false
+          name: ${{ github.ref_name }}
+          tag_name: ${{ github.ref_name }}
+          target_commitish: ${{ github.sha }}
+          files: |
+            publish/${{ env.PROJECT }}.dll
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
