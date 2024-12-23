@@ -1,4 +1,5 @@
 // no auto
+using ArbitraryComponentAccess.Components;
 using FrooxEngine;
 using FrooxEngine.ProtoFlux;
 using ProtoFlux.Core;
@@ -13,11 +14,15 @@ public class ForeachComponentLogix : ActionNode<FrooxEngineContext>
     public Call loopStart;
     public Call loopIteration;
     public Continuation loopEnd;
+    public Continuation onBlocked;
     public override bool CanBeEvaluated => false;
 
     protected override IOperation Run(FrooxEngineContext context)
     {
         Slot? slot = this.slot!.Evaluate(context);
+
+        if (!context.World.Permissions.CheckAll((ACAPermissions p) => p.is_ACA_Allowed))
+            return onBlocked.Target;
 
         loopStart.Execute(context);
 
@@ -26,7 +31,14 @@ public class ForeachComponentLogix : ActionNode<FrooxEngineContext>
             slot.ForeachComponent<Component>
             ( (c) => 
                 { 
-                    component.Write( c, context ); 
+                    if (context.World.Permissions.CheckAll((ACAPermissions p) => p.IsTypeAllowedForExecution(c.GetType())))
+                    {
+                        component.Write(c, context);
+                    }
+                    else
+                    {
+                        component.Write(null!, context);
+                    }
                     loopIteration.Execute( context ); 
                     return !context.AbortExecution;
                 }, false, false );

@@ -16,13 +16,14 @@ public class ForeachComponent : ActionNode<FrooxEngineContext>
     public readonly SyncRef<ISyncNodeOperation> loopStart = new();
     public readonly SyncRef<ISyncNodeOperation> loopIteration = new();
     public readonly SyncRef<INodeOperation> loopEnd = new();
+    public readonly SyncRef<INodeOperation> onBlocked = new();
     
     public ForeachComponentLogix TypedNodeInstance { get; private set; } = null!;
     public override Type NodeType => typeof( ForeachComponentLogix );
     public override INode NodeInstance => TypedNodeInstance!;
     public override int NodeInputCount => base.NodeInputCount + 1;
     public override int NodeOutputCount => base.NodeOutputCount + 1;
-    public override int NodeImpulseCount => base.NodeImpulseCount + 3;
+    public override int NodeImpulseCount => base.NodeImpulseCount + 4;
 
     public override void ClearInstance()
     {
@@ -101,8 +102,10 @@ public class ForeachComponent : ActionNode<FrooxEngineContext>
             return loopIteration;
         case 2:
             return loopEnd;
+        case 3:
+            return onBlocked;
         default:
-            index -= 3;
+            index -= 4;
             return null!;
         }
     }
