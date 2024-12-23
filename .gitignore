@@ -2,6 +2,9 @@
 additionalPlugins/
 rml_*/
 
+# autumn's additional thingies
+open_resonite.cmd
+
 ## Ignore Resonite's Files
 Resonite/
 
