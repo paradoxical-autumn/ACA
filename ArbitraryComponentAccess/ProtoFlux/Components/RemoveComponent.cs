@@ -4,6 +4,7 @@
 // shameless theft from https://github.com/ErrorJan/ResonitePlugin-EngineShennanigans/blob/master/EngineShennanigans/Components/ProtoFluxBinds/RemoveComponent.cs
 // hehe my plugin won the coin flip!!
 
+using ArbitraryComponentAccess.Components;
 using FrooxEngine;
 using FrooxEngine.ProtoFlux;
 using ProtoFlux.Core;
@@ -24,6 +25,12 @@ public class RemoveComponentLogix : ActionNode<FrooxEngineContext>
         Component? c = component!.Evaluate(context);
 
         if (c == null) 
+            return onFailed.Target;
+
+        if (!context.World.Permissions.CheckAll((ACAPermissions p) => p.is_ACA_Allowed))
+            return onFailed.Target;
+
+        if (!context.World.Permissions.CheckAll((ACAPermissions p) => p.IsTypeAllowedForExecution(c.GetType())))
             return onFailed.Target;
 
         // c.Destroy() is safer as it actually calls OnDestroying(), letting the component clean up after itself.

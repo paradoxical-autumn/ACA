@@ -59,19 +59,15 @@ public class ACAPermissions : PermissionsComponent
 
             if (btype == type)
             {
-                UniLogPlugin.Warning($"holy shidd!! {type} can't be real!! blocking!!", true);
                 return false;
             }
         }
-
-        UniLogPlugin.Warning($"yeh type {type} seems fine.", true);
 
         return true;
     }
 
     private bool CheckSlotForExecution(Slot slot)
     {
-        UniLogPlugin.Warning($"Checking slot: {slot} for execution.");
         foreach (Type btype in BlockedTypes)
         {
             if (btype == null)
@@ -79,12 +75,10 @@ public class ACAPermissions : PermissionsComponent
 
             if (slot?.GetComponentInParents(btype) != null)
             {
-                UniLogPlugin.Warning($"component found!!");
                 return false;
             }
         }
 
-        UniLogPlugin.Warning("No components found.");
         return true;
     }
 }

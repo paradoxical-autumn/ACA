@@ -3,6 +3,7 @@ using FrooxEngine;
 using FrooxEngine.ProtoFlux;
 using ProtoFlux.Runtimes.Execution;
 using ProtoFlux.Core;
+using ArbitraryComponentAccess.Components;
 
 namespace ArbitraryComponentAccess.ProtoFlux.Components;
 
@@ -22,6 +23,12 @@ public class AddComponentLogix<T> : ActionNode<FrooxEngineContext> where T : Com
     {
         Slot? s = slot!.Evaluate( context );
         if ( s == null )
+            return onFailed.Target;
+
+        if (!context.World.Permissions.CheckAll((ACAPermissions p) => p.is_ACA_Allowed))
+            return onFailed.Target;
+
+        if (!context.World.Permissions.CheckAll((ACAPermissions p) => p.IsTypeAllowedForExecution(typeof(T))))
             return onFailed.Target;
 
         T ic;

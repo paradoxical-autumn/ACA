@@ -4,6 +4,7 @@
 // shameless theft from https://github.com/ErrorJan/ResonitePlugin-EngineShennanigans/blob/master/EngineShennanigans/ProtoFlux/AddComponent.cs
 // hehe my plugin won the coin flip!!
 
+using ArbitraryComponentAccess.Components;
 using FrooxEngine;
 using FrooxEngine.ProtoFlux;
 using ProtoFlux.Core;
@@ -30,6 +31,12 @@ public class AddComponentLogix : ActionNode<FrooxEngineContext>
         Slot? s = slot!.Evaluate(context);
         Type? t = componentType!.Evaluate(context);
         if (s == null || t == null)
+            return onFailed.Target;
+
+        if(!context.World.Permissions.CheckAll((ACAPermissions p) => p.is_ACA_Allowed))
+            return onFailed.Target;
+
+        if (!context.World.Permissions.CheckAll((ACAPermissions p) => p.IsTypeAllowedForExecution(t)))
             return onFailed.Target;
 
         if (!t.IsSubclassOf(typeof(Component)) || t.GetConstructor(Type.EmptyTypes) == null || t.ContainsGenericParameters)
