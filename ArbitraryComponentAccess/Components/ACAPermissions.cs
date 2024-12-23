@@ -41,15 +41,6 @@ public class ACAPermissions : PermissionsComponent
         SetupPermissions();
     }
 
-    public bool CanExecute(Component comp)
-    {
-        return CheckSlotForExecution(comp.Slot);
-    }
-    public bool CanExecute(Slot slot)
-    {
-        return CheckSlotForExecution(slot);
-    }
-
     public bool IsTypeAllowedForExecution(Type type)
     {
         foreach (Type btype in BlockedTypes)
@@ -58,22 +49,6 @@ public class ACAPermissions : PermissionsComponent
                 continue;
 
             if (btype == type)
-            {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    private bool CheckSlotForExecution(Slot slot)
-    {
-        foreach (Type btype in BlockedTypes)
-        {
-            if (btype == null)
-                continue;
-
-            if (slot?.GetComponentInParents(btype) != null)
             {
                 return false;
             }
