@@ -1,4 +1,5 @@
 ﻿// no auto
+using ArbitraryComponentAccess.Components;
 using Elements.Core;
 using FrooxEngine;
 using FrooxEngine.ProtoFlux;
@@ -15,11 +16,21 @@ public class ComponentFromSlotLogix<T> : ObjectFunctionNode<FrooxEngineContext, 
 
     protected override T Compute(FrooxEngineContext context)
     {
+        if (!context.World.Permissions.CheckAll((ACAPermissions p) => p.is_ACA_Allowed))
+        {
+            return null!;
+        }
+
         Slot? my_slot = slot!.Evaluate(context);
         int my_index = componentIndex.Evaluate(context);
 
         // handle nulls
         if (my_slot == null) return null!;
+
+        if (!context.World.Permissions.CheckAll((ACAPermissions p) => p.IsTypeAllowedForExecution(typeof(T))))
+        {
+            return null!;
+        }
 
         List<T> my_components = my_slot.GetComponents<T>();
 
