@@ -20,68 +20,46 @@ internal static class ExecutionHook
     }
 #pragma warning restore CS0169, IDE0051, CA1823, IDE0044
 
-    private static void HandleThreadFinished(object sender, EventArgs e)
-    {
-        UniLogPlugin.Log("welcome back to main!!");
-        UserspaceRadiantDash URD = Userspace.UserspaceWorld?.GetGloballyRegisteredComponent<UserspaceRadiantDash>()!;
-        ModalOverlayManager mgr = URD.Slot.GetComponent<ModalOverlayManager>();
-
-        RectTransform rect = mgr.OpenModalOverlay(new float2(0.6f, 0.6f), "ACA Bootstrapper", false, true)!;
-        if (rect != null)
-        {
-            ACAWarningDialog obj = rect.Slot.AttachComponent<ACAWarningDialog>();
-        }
-        else
-        {
-            UniLogPlugin.Error("erm the rect was null??");
-        }
-    }
-
     static ExecutionHook()
     {
-        UniLogPlugin.Log("Start of execution hook!!");
-
-        UserspaceCheckWorker worker = new UserspaceCheckWorker();
-        worker.JobFinished += HandleThreadFinished;
-
-        Thread thread1 = new Thread(worker.Run);
-        thread1.Start();
-}
-
-    class UserspaceCheckWorker
-    {
-        public event EventHandler JobFinished;
-
-        public void Run()
+        UniLogPlugin.Log("Hooking into Engine.Current.OnReady. This may take a while -- PARADOX! BE PATIENT.");
+        try
         {
-            Thread.CurrentThread.IsBackground = true;
-            while (Userspace.UserspaceWorld == null)
-            {
-                UniLogPlugin.Log("userspace world not there!!");
-                Thread.Sleep(1000);
-            }
+            Engine.Current.OnReady += () =>
+                {
+                    UniLogPlugin.Log("Hooked into OnReady successfully! Trying funny userspace shid!");
+                    UserspaceRadiantDash userspaceRadiantDash = Userspace.UserspaceWorld.GetRadiantDash();
+                    if (userspaceRadiantDash != null )
+                    {
+                        // :3
+                        UniLogPlugin.Log("we're not null!! yay!!");
 
-            UniLogPlugin.Log("USERSPACE WORLD THERE!!");
+                        // Grab the modal overlay and start using it! This does start a race condition, we need to be sure the dash is... well, loaded.
+                        // We could spawn the dialogue in userspace using another system
+                        // Wait that's a better idea to prevent race conditions.
+                        // Why aren't we using that?
+                        ModalOverlayManager mgr = userspaceRadiantDash.Slot.GetComponent<ModalOverlayManager>();
 
-            UniLogPlugin.Log("checking for URD");
-            UserspaceRadiantDash URD = Userspace.UserspaceWorld?.GetGloballyRegisteredComponent<UserspaceRadiantDash>()!;
-
-            while (URD == null)
-            {
-                UniLogPlugin.Log("urd null, checking in 1sec");
-                Thread.Sleep(1000);
-                URD = Userspace.UserspaceWorld?.GetGloballyRegisteredComponent<UserspaceRadiantDash>()!;
-            }
-
-            UniLogPlugin.Log("urd isnt null anymore :D -- checking MOM (modal overlay mgr, not mommy)");
-
-            while (URD.Slot.GetComponent<ModalOverlayManager>() == null)
-            {
-                UniLogPlugin.Log("erm overlay returned null so it no worky :P -- trying again in 1 sec");
-                Thread.Sleep(1000);
-            }
-
-            JobFinished(this, EventArgs.Empty);
+                        RectTransform rect = mgr.OpenModalOverlay(new float2(0.6f, 0.6f), "ACA Bootstrapper", false, false);
+                        if (rect != null )
+                        {
+                            ACAWarningDialog obj = rect.Slot.AttachComponent<ACAWarningDialog>();
+                        }
+                        else
+                        {
+                            UniLogPlugin.Error("Rect was null!", true);
+                        }
+                    }
+                    else
+                    {
+                        // all hell has broken lose.
+                        UniLogPlugin.Warning("URD is null. Wtf?", true);
+                    }
+                };
+        }
+        catch (Exception ex)
+        {
+            UniLogPlugin.Warning($"Non-fatal thrown, then caught, during init: {ex}", true);
         }
     }
 
