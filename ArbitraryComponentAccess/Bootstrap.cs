@@ -1,8 +1,6 @@
-﻿using FrooxEngine;
-using FrooxEngine.UIX;
-using System.Threading;
+﻿using ArbitraryComponentAccess.Components;
 using Elements.Core;
-using ArbitraryComponentAccess.Components;
+using FrooxEngine;
 
 namespace ArbitraryComponentAccess;
 
@@ -35,7 +33,16 @@ internal static class ExecutionHook
                         return;
                     }
 
-                    Slot aca_slot = userspace_world.AddSlot("evidence ACA is working", false);
+
+                    userspace_world.RunSynchronously(() =>
+                    {
+                        Userspace.UserspaceWorld.RunSynchronously(delegate
+                        {
+                            Slot slot = Userspace.UserspaceWorld.AddSlot("ACA Warning", false);
+                            slot.PositionInFrontOfUser(float3.Backward);
+                            slot.AttachComponent<ACAWarningPopup>();
+                        });
+                    });
                 };
         }
         catch (Exception ex)
