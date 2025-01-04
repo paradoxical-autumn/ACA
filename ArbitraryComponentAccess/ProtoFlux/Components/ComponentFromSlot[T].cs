@@ -34,6 +34,8 @@ public class ComponentFromSlotLogix<T> : ObjectFunctionNode<FrooxEngineContext, 
 
         List<T> my_components = my_slot.GetComponents<T>();
 
+        if (my_index < 0 || my_index >= my_components.Count) return null!;
+
         return my_components.GetOrNull( my_index );
     }
 }
