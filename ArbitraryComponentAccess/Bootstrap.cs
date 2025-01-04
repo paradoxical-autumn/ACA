@@ -25,11 +25,11 @@ internal static class ExecutionHook
         {
             Engine.Current.OnReady += () =>
                 {
-                    UniLogPlugin.Log("Hooked into OnReady successfully! Attempting userspace editing. This often leads to lock errors since we don't lock the datamodel. How do you even do that?");
+                    UniLogPlugin.Log("Hooked into OnReady successfully! Attempting userspace editing.");
                     World userspace_world = Userspace.UserspaceWorld;
                     if (userspace_world == null)
                     {
-                        UniLogPlugin.Warning("Userspace world is null. Exiting...", true);
+                        UniLogPlugin.Warning("Userspace world is null. Unable to show warning to user!", true);
                         return;
                     }
 
