@@ -8,7 +8,7 @@ using FluxExecutionContext = ProtoFlux.Runtimes.Execution.ExecutionContext;
 
 namespace ArbitraryComponentAccess.ProtoFluxBinds.Components;
 
-[Category( "ProtoFlux/Runtimes/Execution/Nodes/Slots" )]
+[Category( "ProtoFlux/Runtimes/Execution/Nodes/ACA/Slots" )]
 public class ForeachChildSlot : ActionNode<FrooxEngineContext>
 {
     public readonly SyncRef<INodeObjectOutput<Slot>> slot = new();
