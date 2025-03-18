@@ -69,7 +69,10 @@ public class FluxBindings : IIncrementalGenerator
     private string GetFormattedTypeName( INamedTypeSymbol typeSymbol )
     {
         string typeName = typeSymbol.Name;
-        typeName = typeName.Remove( typeName.IndexOf( "Logix" ) );
+
+        int a = typeName.IndexOf( "Logix" );
+        if ( a != -1 )
+            typeName = typeName.Remove( a );
 
         if ( typeSymbol.IsGenericType )
         {
@@ -246,52 +249,52 @@ public class {{className}} : {{classSymbol.BaseType!.Name}}<{{genericArgs}}> {{c
         throw new ArgumentException( "Node instance is not of type " + typeof( global::{{fullClassName}} ) );
     }
 
-    protected override ISyncRef GetInputInternal( ref int index )
+    protected override ISyncRef GetInputInternal( ref int __index__ )
     {
-        ISyncRef inputInternal = base.GetInputInternal( ref index );
-        if ( inputInternal != null )
+        ISyncRef __inputInternal__ = base.GetInputInternal( ref __index__ );
+        if ( __inputInternal__ != null )
         {
-            return inputInternal;
+            return __inputInternal__;
         }
 
-        switch ( index )
+        switch ( __index__ )
         {
 {{inputSyncRefsGets}}
         default:
-            index -= {{inputSyncRefAmount}};
+            __index__ -= {{inputSyncRefAmount}};
             return null!;
         }
     }
 
-    protected override INodeOutput GetOutputInternal( ref int index )
+    protected override INodeOutput GetOutputInternal( ref int __index__ )
     {
-        INodeOutput outputInternal = base.GetOutputInternal( ref index );
-        if ( outputInternal != null )
+        INodeOutput __outputInternal__ = base.GetOutputInternal( ref __index__ );
+        if ( __outputInternal__ != null )
         {
-            return outputInternal;
+            return __outputInternal__;
         }
 
-        switch ( index )
+        switch ( __index__ )
         {
 {{outputRefsGets}}
         default:
-            index -= {{outputRefAmount}};
+            __index__ -= {{outputRefAmount}};
             return null!;
         }
     }
 
-    protected override ISyncRef GetImpulseInternal( ref int index )
+    protected override ISyncRef GetImpulseInternal( ref int __index__ )
     {
-        ISyncRef impulseInternal = base.GetImpulseInternal( ref index );
-        if ( impulseInternal != null )
+        ISyncRef __impulseInternal__ = base.GetImpulseInternal( ref __index__ );
+        if ( __impulseInternal__ != null )
         {
-            return impulseInternal;
+            return __impulseInternal__;
         }
-        switch ( index )
+        switch ( __index__ )
         {
 {{callSyncRefsGets}}
         default:
-            index -= {{callSyncRefAmount}};
+            __index__ -= {{callSyncRefAmount}};
             return null!;
         }
     }
