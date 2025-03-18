@@ -1,6 +1,7 @@
 # ErrorJan's additional thingies
 additionalPlugins/
 rml_*/
+generator_debug_log.txt
 
 # autumn's additional thingies
 open_resonite.cmd

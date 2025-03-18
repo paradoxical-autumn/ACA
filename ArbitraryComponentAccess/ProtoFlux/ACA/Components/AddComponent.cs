@@ -4,15 +4,16 @@
 // shameless theft from https://github.com/ErrorJan/ResonitePlugin-EngineShennanigans/blob/master/EngineShennanigans/ProtoFlux/AddComponent.cs
 // hehe my plugin won the coin flip!!
 
-using ArbitraryComponentAccess.Components;
 using FrooxEngine;
-using FrooxEngine.ProtoFlux;
 using ProtoFlux.Core;
+
+using ArbitraryComponentAccess.Components;
+using FrooxEngine.ProtoFlux;
 using ProtoFlux.Runtimes.Execution;
 
 namespace ArbitraryComponentAccess.ProtoFlux.Components;
 
-[Category("ACA/Components")]
+[NodeCategory("ACA/Components")]
 public class AddComponentLogix : ActionNode<FrooxEngineContext>
 {
     public ObjectInput<Slot> slot;

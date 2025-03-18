@@ -12,7 +12,7 @@ using ProtoFlux.Runtimes.Execution;
 
 namespace ArbitraryComponentAccess.ProtoFlux.Components;
 
-[Category("ACA/Components")]
+[NodeCategory("ACA/Components")]
 public class RemoveComponentLogix : ActionNode<FrooxEngineContext>
 {
     public ObjectInput<Component> component;

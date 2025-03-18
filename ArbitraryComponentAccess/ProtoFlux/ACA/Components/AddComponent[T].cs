@@ -7,6 +7,7 @@ using ArbitraryComponentAccess.Components;
 
 namespace ArbitraryComponentAccess.ProtoFlux.Components;
 
+[NodeCategory("ACA/Components")]
 public class AddComponentLogix<T> : ActionNode<FrooxEngineContext> where T : Component, new()
 {
     public ObjectInput<Slot> slot;

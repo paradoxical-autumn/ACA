@@ -7,6 +7,7 @@
 		<Deterministic>true</Deterministic>
 		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
 		<NoWarn>MSB3277</NoWarn>
+		<!-- <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles> -->
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -38,6 +39,9 @@
 		<Reference Include="SkyFrost.Base">
 		  <HintPath>$(ResonitePath)/Resonite_Data/Managed/SkyFrost.Base.dll</HintPath>
 		</Reference>
+		<Reference Include="SkyFrost.Base.Models">
+		  <HintPath>$(ResonitePath)/Resonite_Data/Managed/SkyFrost.Base.Models.dll</HintPath>
+		</Reference>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -45,6 +49,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\SourceGen\SourceGen.csproj" OutputItemType="Analyzer" />
+		<ProjectReference Include="..\ErrorsSourceGen\ErrorsSourceGen.csproj" OutputItemType="Analyzer" />
 	</ItemGroup>
 </Project>
