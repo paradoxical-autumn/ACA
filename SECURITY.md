@@ -14,7 +14,8 @@ You do not gain anything except credits in the patch notes for finding and repor
 
 **Please do not be scared to open security tickets if you're unsure.** We don't mind having to explain why we *don't* think something is an issue and it's better to be safe than sorry.
 
-## Step-By-Step guide to reporting an issue *here*
+## Step-By-Step guide to reporting an issue about component types
+For any different types of security issues, please actually run through the process properly!
 
 ### CVE ID
 Choose "Request a CVE ID later"
