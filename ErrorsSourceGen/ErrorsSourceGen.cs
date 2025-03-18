@@ -96,12 +96,22 @@ public class FluxBindings : IIncrementalGenerator
         string genericArgs = string.Join( ", ", classSymbol.BaseType?.TypeArguments.Select( 
             arg => arg.ToString().Contains( "Context" ) ? "global::" + arg.ToString() : arg.ToString() ) );
         string constraints = string.Join( " ", classSymbol.TypeParameters
-            .Where( tp => tp.ConstraintTypes.Length > 0 || tp.HasConstructorConstraint || tp.HasUnmanagedTypeConstraint )
+            .Where( tp => 
+                tp.ConstraintTypes.Length > 0 || 
+                tp.HasConstructorConstraint || 
+                tp.HasUnmanagedTypeConstraint || 
+                tp.HasValueTypeConstraint || 
+                tp.HasReferenceTypeConstraint || 
+                tp.HasNotNullConstraint
+            )
             .Select( tp => $"where { tp.Name } : { string.Join( ", ", tp.ConstraintTypes.Select( c => c.ToString() )
                 .Concat( [ 
                     tp.HasConstructorConstraint ? "new()" : null, 
-                    tp.HasUnmanagedTypeConstraint ? "unmanaged" : null ] )
-                .Where( (s) => s is not null ) 
+                    tp.HasUnmanagedTypeConstraint ? "unmanaged" : null,
+                    tp.HasValueTypeConstraint ? "struct" : null,
+                    tp.HasReferenceTypeConstraint ? (tp.ReferenceTypeConstraintNullableAnnotation == NullableAnnotation.Annotated ? "class?" : "class") : null, //why..
+                    tp.HasNotNullConstraint ? "notnull" : null,
+                ] ).Where( (s) => s is not null ) 
             ) }" )
             .ToList() );
         string fullClassName = classSymbol.ToString();
