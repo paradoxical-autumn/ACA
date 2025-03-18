@@ -173,11 +173,12 @@ public class FluxBindings : IIncrementalGenerator
                         break;
 
                     // ---- Calls ----
-                    case "Continuation":
-                        nodeOutputType = "INodeOperation";
-                        goto ContinueCalls;
                     case "Call":
                         nodeOutputType = "ISyncNodeOperation";
+                        goto ContinueCalls;
+                    case "Continuation":
+                    case "AsyncCall":
+                        nodeOutputType = "INodeOperation";
 
                     ContinueCalls:
                         constructedType = $"SyncRef<{ nodeOutputType }>";
