@@ -104,16 +104,17 @@ public class FluxBindings : IIncrementalGenerator
                 tp.HasReferenceTypeConstraint || 
                 tp.HasNotNullConstraint
             )
-            .Select( tp => $"where { tp.Name } : { string.Join( ", ", tp.ConstraintTypes.Select( c => c.ToString() )
-                .Concat( [ 
-                    tp.HasConstructorConstraint ? "new()" : null, 
+            .Select( tp => $"where { tp.Name } : { string.Join( ", ", 
+                new string?[] { 
                     tp.HasUnmanagedTypeConstraint ? "unmanaged" : null,
                     tp.HasValueTypeConstraint ? "struct" : null,
                     tp.HasReferenceTypeConstraint ? (tp.ReferenceTypeConstraintNullableAnnotation == NullableAnnotation.Annotated ? "class?" : "class") : null, //why..
                     tp.HasNotNullConstraint ? "notnull" : null,
-                ] ).Where( (s) => s is not null ) 
-            ) }" )
-            .ToList() );
+                }.Where( (s) => s is not null )
+                .Concat( tp.ConstraintTypes.Select( c => c.ToString() ) )
+                .Concat( [ tp.HasConstructorConstraint ? "new()" : null ] ).Where( (s) => s is not null )
+                ) }" ).ToList() 
+            );
         string fullClassName = classSymbol.ToString();
         string inputSyncRefsDecl = "\n";
         string inputSyncRefsGets = "";
