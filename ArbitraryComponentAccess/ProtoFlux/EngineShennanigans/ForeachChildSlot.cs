@@ -1,10 +1,9 @@
-// no auto
 using FrooxEngine;
 using FrooxEngine.ProtoFlux;
 using ProtoFlux.Core;
 using ProtoFlux.Runtimes.Execution;
 
-namespace ArbitraryComponentAccess.ProtoFlux.Components;
+namespace ArbitraryComponentAccess.ProtoFlux.EngineShennanigans;
 
 // Revive of EngineShennanigans POG?
 [NodeCategory("EngineShennanigans")]
