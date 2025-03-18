@@ -7,6 +7,7 @@
 		<Deterministic>true</Deterministic>
 		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
 		<NoWarn>MSB3277</NoWarn>
+		<!-- <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles> -->
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -45,6 +46,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\SourceGen\SourceGen.csproj" OutputItemType="Analyzer" />
+		<ProjectReference Include="..\ErrorsSourceGen\ErrorsSourceGen.csproj" OutputItemType="Analyzer" />
 	</ItemGroup>
 </Project>

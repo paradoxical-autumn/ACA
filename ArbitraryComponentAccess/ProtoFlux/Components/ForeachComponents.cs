@@ -7,6 +7,7 @@ using ProtoFlux.Runtimes.Execution;
 
 namespace ArbitraryComponentAccess.ProtoFlux.Components;
 
+[NodeCategory("ACA/Components")]
 public class ForeachComponentLogix : ActionNode<FrooxEngineContext>
 {
     public ObjectInput<Slot> slot;
