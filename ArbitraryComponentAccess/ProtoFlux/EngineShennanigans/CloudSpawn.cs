@@ -4,13 +4,12 @@ using FrooxEngine.ProtoFlux;
 using ProtoFlux.Core;
 using ProtoFlux.Runtimes.Execution;
 
-using ArbitraryComponentAccess.Components;
 using Elements.Core;
 
 namespace ArbitraryComponentAccess.ProtoFlux.Components;
 
 // Revive of EngineShennanigans POG?
-[NodeCategory("ACA/EngineShennanigans")]
+[NodeCategory("EngineShennanigans")]
 public class CloudSpawnLogix : AsyncActionNode<FrooxEngineContext>
 {
     public ObjectInput<Uri> recordURL;

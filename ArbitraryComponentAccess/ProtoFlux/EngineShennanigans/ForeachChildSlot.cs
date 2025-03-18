@@ -6,7 +6,8 @@ using ProtoFlux.Runtimes.Execution;
 
 namespace ArbitraryComponentAccess.ProtoFlux.Components;
 
-[NodeCategory("ACA/Slots")]
+// Revive of EngineShennanigans POG?
+[NodeCategory("EngineShennanigans")]
 public class ForeachChildSlotLogix : ActionNode<FrooxEngineContext>
 {
     public ObjectInput<Slot> slot;
