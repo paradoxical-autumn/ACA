@@ -9,7 +9,8 @@ using Elements.Core;
 
 namespace ArbitraryComponentAccess.ProtoFlux.Components;
 
-[NodeCategory("ACA/Other")]
+// Revive of EngineShennanigans POG?
+[NodeCategory("ACA/EngineShennanigans")]
 public class CloudSpawnLogix : AsyncActionNode<FrooxEngineContext>
 {
     public ObjectInput<Uri> recordURL;
