@@ -6,7 +6,7 @@ using ProtoFlux.Runtimes.Execution;
 
 using Elements.Core;
 
-namespace ArbitraryComponentAccess.ProtoFlux.Components;
+namespace ArbitraryComponentAccess.ProtoFlux.EngineShennanigans;
 
 // Revive of EngineShennanigans POG?
 [NodeCategory("EngineShennanigans")]
@@ -37,7 +37,7 @@ public class CloudSpawnLogix : AsyncActionNode<FrooxEngineContext>
         Slot spawnParent = this.spawnParent!.Evaluate( ctx ) ?? ctx.World.RootSlot;
         float3 spawnPos = this.spawnPos.Evaluate( ctx );
         floatQ spawnRot = this.spawnRot.Evaluate( ctx );
-        float3 spawnScl = this.spawnScl.Evaluate( ctx );
+        float3 spawnScl = this.spawnScl.Evaluate( ctx, float3.One );
         bool spawnPersistant = this.spawnPersistant.Evaluate( ctx, true );
         bool multiplyWithSavedScale = this.multiplyWithSavedScale.Evaluate( ctx, true );
         
