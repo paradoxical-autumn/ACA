@@ -125,6 +125,9 @@ public class FluxBindings : IIncrementalGenerator
         string callSyncRefsDecl = "";
         string callSyncRefsGets = "";
         int callSyncRefAmount = 0;
+        string callListDecl = "";
+        string callListGet = "null!";
+        int callListAmount = 0;
 
         foreach ( var att in classSymbol.GetAttributes() )
         {
@@ -152,7 +155,7 @@ public class FluxBindings : IIncrementalGenerator
             
             if ( field.Type is INamedTypeSymbol fieldType2 )
             {
-                string constructedField = "    public readonly {0} {1} = new();";
+                string constructedField = "    public readonly {0} {1};";
                 string constructedType;
                 string typeArgs = string.Join( ", ", fieldType2.TypeArguments );
 
@@ -200,6 +203,24 @@ public class FluxBindings : IIncrementalGenerator
                         callSyncRefsDecl += fieldDecl + "\n";
                         callSyncRefsGets += $"        case {callSyncRefAmount++}: return {field.Name};\n";
                         break;
+                    
+                    // vvv very untested vvv
+
+                    // ---- Call Lists ----
+                    case "CallList":
+                        nodeOutputType = "ISyncNodeOperation";
+                        goto ContinueCallList;
+                    case "ContinuationList":
+                    case "AsyncCallList":
+                        nodeOutputType = "INodeOperation";
+
+                    ContinueCallList:
+                        constructedType = $"SyncRefList<{ nodeOutputType }>";
+                        fieldDecl = string.Format( constructedField, constructedType, field.Name );
+                        callListDecl += fieldDecl + "\n";
+                        callListGet = $"{field.Name};\n";
+                        callListAmount++;
+                        break;
 
                     default:
                         continue;
@@ -233,6 +254,8 @@ public class {{className}} : {{classSymbol.BaseType!.Name}}<{{genericArgs}}> {{c
     public override int NodeOutputCount => base.NodeOutputCount + {{outputRefAmount}};
 {{callSyncRefsDecl}}
     public override int NodeImpulseCount => base.NodeImpulseCount + {{callSyncRefAmount}};
+{{callListDecl}}
+    public override int NodeImpulseListCount => base.NodeImpulseListCount + {{callListAmount}};
 
     public override void ClearInstance()
     {
@@ -308,6 +331,19 @@ public class {{className}} : {{classSymbol.BaseType!.Name}}<{{genericArgs}}> {{c
             __index__ -= {{callSyncRefAmount}};
             return null!;
         }
+    }
+
+    protected override ISyncList GetImpulseListInternal( ref int __index__ )
+    {
+        ISyncList __impulseListInternal__ = base.GetImpulseListInternal( ref __index__ );
+        if ( __impulseListInternal__ != null )
+            return __impulseListInternal__;
+        
+        if ( __index__ == 0 )
+            return {{callListGet}};
+        
+        --__index__;
+        return null!;
     }
 }
 """;
