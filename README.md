@@ -1,5 +1,6 @@
 # Arbitrarily Contained Anarchy
-*(formerlly Arbitrary Componetn Access)*
+*(formerlly Arbitrary Component Access)*
+
 A powerful resonite **plugin** (not a mod, [see below](#isnt-this-dangerous-for-other-people-who-dont-have-it-installed)) designed to impliment some more *dangerous* functionality into FrooxEngine. Originally starting as a simple plugin to give you Arbitrary Component Access it has since evolved into much more.
 
 > [!CAUTION]
