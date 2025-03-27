@@ -3,6 +3,17 @@ description: Recommend a feature for consideration.
 labels: [enhancement]
 assignees: paradoxical-autumn, ErrorJan
 body:
+  - type: dropdown
+    id: areas
+    attributes:
+      label: What areas of the plugin does this apply to?
+      multiple: true
+      options:
+        - "Arbitrary Component Access (ACA)"
+        - "Engine Shenanigans (Other Dangerous Features)"
+        - "Other/New section"
+    validations:
+      required: true
   - type: textarea
     id: problem
     attributes:
