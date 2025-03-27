@@ -13,7 +13,7 @@ public class ACAWarningPopup : Component
     protected override void OnAttach()
     {
         base.OnAttach();
-        UIBuilder uiBuilder = RadiantUI_Panel.SetupPanel(base.Slot, "Arbitrary Component Access", new float2(1280f, 720f), pinButton: false);
+        UIBuilder uiBuilder = RadiantUI_Panel.SetupPanel(base.Slot, "Arbitrarily Contained Anarchy", new float2(1280f, 720f), pinButton: false);
         Slot slot = base.Slot;
         float3 v = slot.LocalScale;
         slot.LocalScale = v * 0.0005f;
@@ -56,7 +56,7 @@ public class ACAWarningPopup : Component
 
     private void OpenGithub(IButton button, ButtonEventData eventData)
     {
-        Uri URL = new("https://github.com/paradoxical-autumn/ArbitraryComponentAccess");
+        Uri URL = new("https://github.com/paradoxical-autumn/ACA");
 
         if (base.World != Userspace.UserspaceWorld)
         {
