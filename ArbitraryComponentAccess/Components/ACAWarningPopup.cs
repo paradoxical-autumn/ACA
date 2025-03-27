@@ -56,7 +56,7 @@ public class ACAWarningPopup : Component
 
     private void OpenGithub(IButton button, ButtonEventData eventData)
     {
-        Uri URL = new("https://github.com/paradoxical-autumn/ArbitraryComponentAccess"); // TODO: update URL with plugin name change
+        Uri URL = new("https://github.com/paradoxical-autumn/ACA");
 
         if (base.World != Userspace.UserspaceWorld)
         {
