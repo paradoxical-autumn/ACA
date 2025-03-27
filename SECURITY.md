@@ -37,7 +37,7 @@ Type in the current version of ACA that you are using. **This should be the most
 Feel free to use the calculator or define your own severity. All issues are triaged and adjusted accordingly but setting an accurate severity can speed this up.
 
 ### Weaknesses
-Feel free to ignore this section
+Feel free to ignore this section but fill it out if you know how to as it'll help speed things up by telling us exactly what's gone wrong.
 
 ### Credits
 Credit yourself and whoever found the issue! This will be publicised on the release notes, unless you request we don't do that or leave this field blank.
