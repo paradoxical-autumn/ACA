@@ -1,10 +1,6 @@
-# ArbitraryComponentAccess
-A powerful resonite **plugin** (not a mod, [see below](#isnt-this-dangerous-for-other-people-who-dont-have-it-installed)) designed to give you Arbitrary Component Access.
-
-It adds ProtoFlux nodes designed to:
-- Get components from slots
-- Get fields from components
-- Convert IFields into objects
+# Arbitrarily Contained Anarchy
+*(formerlly Arbitrary Componetn Access)*
+A powerful resonite **plugin** (not a mod, [see below](#isnt-this-dangerous-for-other-people-who-dont-have-it-installed)) designed to impliment some more *dangerous* functionality into FrooxEngine. Originally starting as a simple plugin to give you Arbitrary Component Access it has since evolved into much more.
 
 > [!CAUTION]
 >
@@ -25,4 +21,4 @@ Nope! This isn't a mod. You can't just join a random session and start [ab]using
 That's probably a bug from when we were recreating namespaces. Check if there's a more recent version of the plugin and if not, report it as a bug. Make sure to clarify what fields are broken and on what components. Also, if you know what version you saved the item on that can also help!
 
 ## Why did you make this?
-We got bored. Also do NOT ask why we are manually creating the protoflux bindings.
+We got bored.
