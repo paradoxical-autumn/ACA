@@ -2,6 +2,7 @@
 additionalPlugins/
 rml_*/
 generator_debug_log.txt
+Resonite.dxvk-cache
 
 # autumn's additional thingies
 open_resonite.cmd
