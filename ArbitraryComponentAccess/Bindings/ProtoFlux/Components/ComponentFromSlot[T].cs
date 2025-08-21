@@ -3,7 +3,7 @@ using ProtoFlux.Core;
 using FrooxEngine.ProtoFlux;
 using FrooxEngine.ProtoFlux.Runtimes.Execution;
 using ArbitraryComponentAccess.ProtoFlux.Components;
-using Elements.Core;
+using Elements.Data;
 
 using FluxExecutionContext = ProtoFlux.Runtimes.Execution.ExecutionContext;
 

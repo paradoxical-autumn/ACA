@@ -1,65 +1,48 @@
-﻿using ArbitraryComponentAccess.Components;
+﻿using System.Runtime.CompilerServices;
+using ArbitraryComponentAccess.Components;
 using Elements.Core;
 using FrooxEngine;
 
 namespace ArbitraryComponentAccess;
 
-[ImplementableClass(true)]
-internal static class ExecutionHook
-{
-#pragma warning disable CS0169, IDE0051, CA1823, IDE0044
-    // fields must exist due to reflective access
-    private static Type? __connectorType;
-    private static Type? __connectorTypes;
+public class ExecutionHook : IPlatformConnector {
+#pragma warning disable CS1591
+    
+    public PlatformInterface Platform { get; private set; } = null!;
+    public int Priority => -10;
+    public string PlatformName => "ArbitrarilyContainedAnarchy";
+    public string Username => null!;
+    public string PlatformUserId => null!;
+    public bool IsPlatformNameUnique => false;
 
-    private static DummyConnector InstantiateConnector()
+    public void SetCurrentStatus(World world, bool isPrivate, int totalWorldCount) {}
+    public void ClearCurrentStatus() {}
+    public void Update() {}
+    public void Dispose()
     {
-        return new DummyConnector();
+        GC.SuppressFinalize(this);
     }
-#pragma warning restore CS0169, IDE0051, CA1823, IDE0044
+    public void NotifyOfLocalUser(User user) {}
+    public void NotifyOfFile(string file, string name) {}
+    public void NotifyOfScreenshot(World world, string file, ScreenshotType type, DateTime time) {}
 
-    static ExecutionHook()
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
+    public async Task<bool> Initialize(PlatformInterface platformInterface)
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
     {
-        UniLogPlugin.Log("Hooking into Engine.Current.OnReady.");
-        try
-        {
-            Engine.Current.OnReady += () =>
-                {
-                    UniLogPlugin.Log("Hooked into OnReady successfully! Attempting userspace editing.");
-                    World userspace_world = Userspace.UserspaceWorld;
-                    if (userspace_world == null)
-                    {
-                        UniLogPlugin.Warning("Userspace world is null. Unable to show warning to user!", true);
-                        return;
-                    }
-
-
-                    userspace_world.RunSynchronously(() =>
-                    {
-                        Userspace.UserspaceWorld.RunSynchronously(delegate
-                        {
-                            Slot slot = Userspace.UserspaceWorld.AddSlot("ACA Warning", false);
-                            slot.PositionInFrontOfUser(float3.Backward);
-                            slot.AttachComponent<ACAWarningPopup>();
-                        });
-                    });
-                };
-        }
-        catch (Exception ex)
-        {
-            UniLogPlugin.Warning($"Exception thrown during init: {ex}", true);
-        }
+        UniLogPlugin.Log("Initialize() from platformInterface");
+        Platform = platformInterface;
+        return true;
     }
+    
+#pragma warning restore CS1591
+#pragma warning disable CA2255
 
-    private sealed class DummyConnector : IConnector
+    [ModuleInitializer]
+    public static void Init()
     {
-#pragma warning disable CS8766
-        public IImplementable? Owner { get; private set; }
-#pragma warning restore CS8766
-        public void ApplyChanges() { }
-        public void AssignOwner(IImplementable owner) => Owner = owner;
-        public void Destroy(bool destroyingWorld) { }
-        public void Initialize() { }
-        public void RemoveOwner() => Owner = null;
+        UniLogPlugin.Log("Init() from ModuleInitializer");
     }
+    
+#pragma warning restore CA2255
 }
