@@ -43,6 +43,12 @@ public class ExecutionHook : IPlatformConnector {
     {
         UniLogPlugin.Log("Init() from ModuleInitializer");
     }
+
+    static ExecutionHook()
+    {
+        UniLogPlugin.Log("Start of ExecutionHook");
+        ACAInitialiser.Initialise();
+    }
     
 #pragma warning restore CA2255
 }
