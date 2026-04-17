@@ -14,6 +14,12 @@ A powerful resonite **plugin** (not a mod, [see below](#isnt-this-dangerous-for-
 > 
 > Paradoxical Autumn and other contributors do not take liability for any misuse of this plugin or any damage caused from usage of the plugin.
 
+# Installing
+1. [Download the most recent release](https://github.com/paradoxical-autumn/ACA/releases/latest) of the plugin
+2. Add `-LoadAssembly "PATH"` to your Resonite launch arguments, but change `PATH` to the path where you downloaded the DLL. Ensure you keep the quotation marks.</br>*(It should look like `-LoadAssembly "/home/paradox/Downloads/ArbitraryComponentAccess.dll"` as an example.)*
+3. Start your game normally, if it installed correctly a warning will appear once you load into the game.
+4. (If the warning fails to load, take a ProtoFlux tip and open it. There should be a category for `ACA`)
+
 # FAQ
 ## Isn't this dangerous for other people who don't have it installed??
 Nope! This isn't a mod. You can't just join a random session and start [ab]using the plugin. You can only use it in sessions where the host has explicitly installed it as well.
